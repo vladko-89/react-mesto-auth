@@ -24,7 +24,7 @@ function Card(props) {
   return (
     <li className="cards__item" key={props.key}>
       <article className="card">
-        <img onClick={handleClick} src={props.card.link} className="card__image" alt="Изображение карточки" />
+        <img onClick={handleClick} src={props.card.link} className="card__image" alt={props.card.name} />
         <button className={cardDeleteButtonClassName} type="button" aria-label="Кнопка удалить"
           onClick={handleDeleteClick}></button>
         <div className="card__container">

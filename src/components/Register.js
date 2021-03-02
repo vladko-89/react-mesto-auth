@@ -37,14 +37,16 @@ function Register(props) {
             type="email"
             name="email" required
             placeholder="Email" minLength="6" maxLength="40"
-            onChange={handleChangeEmail} />
+            onChange={handleChangeEmail}
+            value={email} />
           <span className="initial-form__error" id="input_email-error"></span>
         </li>
         <li className="initial-form__item">
           <input className="initial-form__input initial-form__email_item_password"
             type="password" name="password"
             id="input_password" required placeholder="Пароль" minLength="2" maxLength="200"
-            onChange={handleChangePassword} />
+            onChange={handleChangePassword}
+            value={password} />
           <span className="initial-form__error" id="input_password-error"></span>
         </li>
       </ul>

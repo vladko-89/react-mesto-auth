@@ -10,7 +10,12 @@ export const register = (email, password) => {
     body: JSON.stringify({ email, password })
   })
     .then((response) => {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      }
+      else {
+        return Promise.reject(`Что-то пошло не так: ${response.status}`);
+      }
     })
     .then((res) => {
       return res;

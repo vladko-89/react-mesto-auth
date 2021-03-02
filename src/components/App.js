@@ -69,7 +69,10 @@ function App() {
       const newCards = cards.map((c) => c._id === card._id ? newCard : c);
       // Обновляем стейт
       setCards(newCards);
-    });
+    })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleCardDelete(card) {
@@ -114,9 +117,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsDeleteCardPopupOpen(false);
     setIsInfoToolTipOpen(false);
-    setSelectedCard({});
-    setTextInfoToolTip('');
-    setStatusInfoToolTip(false);
+    setSelectedCard({ ...selectedCard, isOpen: false })
   }
 
   //Обновили данные пользователя
@@ -182,18 +183,19 @@ function App() {
       })
         .catch((err) => {
           console.log(err);
+          setStatusInfoToolTip(false);
           setTextInfoToolTip('Что-то пошло не так! Попробуйте ещё раз.');
         })
       handleInfoToolTipClick();
     }
     else {
+      setStatusInfoToolTip(false);
       setTextInfoToolTip('Что-то пошло не так! Попробуйте ещё раз.');
       handleInfoToolTipClick();
     }
-
   }
 
-  function CheckToken() {
+  function checkToken() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       auth.checkToken(jwt).then((res) => {
@@ -203,6 +205,9 @@ function App() {
           history.push('/');
         }
       })
+        .catch((err) => {
+          console.log(err);
+        })
     }
   }
 
@@ -226,7 +231,10 @@ function App() {
     }
   }
 
-  CheckToken();
+  React.useEffect(() => {
+    checkToken();
+  }, [])
+
 
 
   return (
