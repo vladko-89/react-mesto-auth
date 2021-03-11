@@ -36,6 +36,11 @@ function App() {
   const [buttonBurger, setButtonBurger] = React.useState(false);
   const history = useHistory();
 
+  //Начальная проверка пользователя
+  React.useEffect(() => {
+    checkLogin();
+  }, [])
+
   //Получили данные пользователя
   React.useEffect(() => {
     api.getUserInfo()
@@ -57,6 +62,8 @@ function App() {
         console.log(err);
       })
   }, [])
+
+
 
   //Ставим/снимаем лайки
   function handleCardLike(card) {
@@ -195,7 +202,7 @@ function App() {
     }
   }
 
-  function checkToken() {
+  function checkLogin() {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       auth.checkToken(jwt).then((res) => {
@@ -210,18 +217,18 @@ function App() {
         })
     }
   }
-
+  // Обработчик события "Выйти из профиля"
   function handleSignOut() {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
     setButtonBurger(false);
     history.push('/sign-in');
   }
-
+  // Обработчик модального окна при регистрации
   function handleInfoToolTipClick() {
     setIsInfoToolTipOpen(true);
   }
-
+  // Обработчик свернуть/развернуть бургер меню в мобильной версии
   function handleButtonBurgerClick() {
     if (!buttonBurger) {
       setButtonBurger(true);
@@ -231,9 +238,7 @@ function App() {
     }
   }
 
-  React.useEffect(() => {
-    checkToken();
-  }, [])
+
 
 
 
